@@ -1,0 +1,274 @@
+<view style="padding:16rpx;background:#fff4db;color:#73551c;font-size:24rpx;">公开展示版 · 路线规划、导航与评分服务未接入</view>
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">← 返回</view>
+    <text class="title">南京水文化知识图谱</text>
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 主内容区域 -->
+  <view class="main-content">
+    <!-- 搜索栏 -->
+    <view class="search-section">
+      <input class="search-input" placeholder="搜索实体（如：秦淮河、李白...）" bindinput="onSearch" value="{{searchKeyword}}" />
+      <view class="search-icon">🔍</view>
+    </view>
+
+    <!-- 知识图谱统计 -->
+    <view class="stats-section">
+      <view class="stats-grid">
+        <view class="stat-item">
+          <text class="stat-number">{{graphData.nodes.length}}</text>
+          <text class="stat-label">实体数量</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{graphData.edges.length}}</text>
+          <text class="stat-label">关系数量</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{entityTypes.length}}</text>
+          <text class="stat-label">实体类型</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{relationTypes.length}}</text>
+          <text class="stat-label">关系类型</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 思维导图式图谱 -->
+    <view class="mindmap-section">
+      <view class="mindmap-container">
+        <!-- 中心节点 -->
+        <view class="center-node" bindtap="onCenterNodeTap">
+          <text class="center-icon">💭</text>
+          <text class="center-name">南京水文化</text>
+          <text class="center-desc">南京独特的水文化体系</text>
+        </view>
+
+        <!-- 第一层连接线 -->
+        <svg class="relation-lines" viewBox="0 0 400 400">
+          <line x1="200" y1="200" x2="100" y2="100" stroke="#E91E63" stroke-width="2"/>
+          <line x1="200" y1="200" x2="300" y2="100" stroke="#E91E63" stroke-width="2"/>
+          <line x1="200" y1="200" x2="100" y2="300" stroke="#E91E63" stroke-width="2"/>
+          <line x1="200" y1="200" x2="300" y2="300" stroke="#E91E63" stroke-width="2"/>
+          <line x1="200" y1="200" x2="200" y2="80" stroke="#E91E63" stroke-width="2"/>
+        </svg>
+
+        <!-- 第一层节点 - 水体 -->
+        <view class="level1-node water-node" style="top: 20%; left: 15%;" bindtap="onNodeTap" data-id="qinhua">
+          <view class="node-header">
+            <text class="node-icon">💧</text>
+            <text class="node-name">秦淮河</text>
+          </view>
+          <view class="relation-label">包含</view>
+          <view class="sub-nodes" wx:if="{{expandedFlags.qinhua}}">
+            <view class="sub-node" bindtap="onNodeTap" data-id="ws">
+              <text class="sub-node-name">文德桥</text>
+              <text class="sub-relation">流经</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="fzm">
+              <text class="sub-node-name">夫子庙</text>
+              <text class="sub-relation">流经</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="wz">
+              <text class="sub-node-name">乌衣巷</text>
+              <text class="sub-relation">流经</text>
+            </view>
+          </view>
+          <view class="expand-btn" bindtap="toggleExpand" data-id="qinhua">
+            {{expandedFlags.qinhua ? '▼' : '▶'}}
+          </view>
+        </view>
+
+        <!-- 第一层节点 - 文学作品 -->
+        <view class="level1-node literature-node" style="top: 20%; right: 15%;" bindtap="onNodeTap" data-id="poem1">
+          <view class="node-header">
+            <text class="node-icon">📖</text>
+            <text class="node-name">诗词作品</text>
+          </view>
+          <view class="relation-label">包含</view>
+          <view class="sub-nodes" wx:if="{{expandedFlags.poem1}}">
+            <view class="sub-node" bindtap="onNodeTap" data-id="poem1">
+              <text class="sub-node-name">《登金陵凤凰台》</text>
+              <text class="sub-relation">李白</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="poem2">
+              <text class="sub-node-name">《乌衣巷》</text>
+              <text class="sub-relation">刘禹锡</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="poem3">
+              <text class="sub-node-name">《泊秦淮》</text>
+              <text class="sub-relation">杜牧</text>
+            </view>
+          </view>
+          <view class="expand-btn" bindtap="toggleExpand" data-id="poem1">
+            {{expandedFlags.poem1 ? '▼' : '▶'}}
+          </view>
+        </view>
+
+        <!-- 第一层节点 - 历史古迹 -->
+        <view class="level1-node heritage-node" style="bottom: 20%; left: 15%;" bindtap="onNodeTap" data-id="fzm">
+          <view class="node-header">
+            <text class="node-icon">🏛️</text>
+            <text class="node-name">历史古迹</text>
+          </view>
+          <view class="relation-label">包含</view>
+          <view class="sub-nodes" wx:if="{{expandedFlags.fzm}}">
+            <view class="sub-node" bindtap="onNodeTap" data-id="fzm">
+              <text class="sub-node-name">夫子庙</text>
+              <text class="sub-relation">位于秦淮河</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="zj">
+              <text class="sub-node-name">朱雀桥</text>
+              <text class="sub-relation">位于秦淮河</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="tm">
+              <text class="sub-node-name">桃叶渡</text>
+              <text class="sub-relation">古渡口</text>
+            </view>
+          </view>
+          <view class="expand-btn" bindtap="toggleExpand" data-id="fzm">
+            {{expandedFlags.fzm ? '▼' : '▶'}}
+          </view>
+        </view>
+
+        <!-- 第一层节点 - 历史人物 -->
+        <view class="level1-node person-node" style="bottom: 20%; right: 15%;" bindtap="onNodeTap" data-id="libai">
+          <view class="node-header">
+            <text class="node-icon">👤</text>
+            <text class="node-name">历史人物</text>
+          </view>
+          <view class="relation-label">包含</view>
+          <view class="sub-nodes" wx:if="{{expandedFlags.libai}}">
+            <view class="sub-node" bindtap="onNodeTap" data-id="libai">
+              <text class="sub-node-name">李白</text>
+              <text class="sub-relation">题咏南京</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="liuyuxi">
+              <text class="sub-node-name">刘禹锡</text>
+              <text class="sub-relation">创作《乌衣巷》</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="wangxizhi">
+              <text class="sub-node-name">王羲之</text>
+              <text class="sub-relation">书法名家</text>
+            </view>
+          </view>
+          <view class="expand-btn" bindtap="toggleExpand" data-id="libai">
+            {{expandedFlags.libai ? '▼' : '▶'}}
+          </view>
+        </view>
+
+        <!-- 第一层节点 - 滨水景观 -->
+        <view class="level1-node landscape-node" style="top: 5%; left: 50%; transform: translateX(-50%);" bindtap="onNodeTap" data-id="fhz">
+          <view class="node-header">
+            <text class="node-icon">🌅</text>
+            <text class="node-name">滨水景观</text>
+          </view>
+          <view class="relation-label">包含</view>
+          <view class="sub-nodes" wx:if="{{expandedFlags.fhz}}">
+            <view class="sub-node" bindtap="onNodeTap" data-id="fhz">
+              <text class="sub-node-name">夫子庙风光带</text>
+              <text class="sub-relation">著名景点</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="xwhg">
+              <text class="sub-node-name">玄武湖公园</text>
+              <text class="sub-relation">城市绿肺</text>
+            </view>
+            <view class="sub-node" bindtap="onNodeTap" data-id="mchg">
+              <text class="sub-node-name">莫愁湖公园</text>
+              <text class="sub-relation">古典园林</text>
+            </view>
+          </view>
+          <view class="expand-btn" bindtap="toggleExpand" data-id="fhz">
+            {{expandedFlags.fhz ? '▼' : '▶'}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 图例说明 -->
+    <view class="legend-section">
+      <text class="legend-title">📋 图例说明</text>
+      <view class="legend-grid">
+        <view class="legend-item">
+          <text class="legend-icon">💧</text>
+          <text class="legend-text">水体</text>
+        </view>
+        <view class="legend-item">
+          <text class="legend-icon">🏛️</text>
+          <text class="legend-text">历史古迹</text>
+        </view>
+        <view class="legend-item">
+          <text class="legend-icon">👤</text>
+          <text class="legend-text">历史人物</text>
+        </view>
+        <view class="legend-item">
+          <text class="legend-icon">📖</text>
+          <text class="legend-text">文学作品</text>
+        </view>
+        <view class="legend-item">
+          <text class="legend-icon">🌅</text>
+          <text class="legend-text">滨水景观</text>
+        </view>
+        <view class="legend-item">
+          <text class="legend-icon">⚙️</text>
+          <text class="legend-text">水利设施</text>
+        </view>
+        <view class="legend-item">
+          <text class="legend-icon">📍</text>
+          <text class="legend-text">区域地名</text>
+        </view>
+        <view class="legend-item">
+          <text class="legend-icon">💭</text>
+          <text class="legend-text">文化概念</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 选中实体详情弹窗 -->
+    <view class="modal-overlay" wx:if="{{selectedEntity}}" bindtap="closeDetail">
+      <view class="modal-content" catchtap="stopPropagation">
+        <view class="modal-header">
+          <view class="modal-icon" style="background-color: {{selectedEntity.color}};">
+            {{selectedEntity.icon}}
+          </view>
+          <view class="modal-info">
+            <text class="modal-name">{{selectedEntity.name}}</text>
+            <text class="modal-type">{{selectedEntity.typeName}}</text>
+          </view>
+          <view class="modal-close" bindtap="closeDetail">✕</view>
+        </view>
+        <view class="modal-body">
+          <view class="modal-section">
+            <text class="modal-section-title">📝 实体介绍</text>
+            <text class="modal-section-content">{{selectedEntity.desc}}</text>
+          </view>
+          <view class="modal-section">
+            <text class="modal-section-title">🔗 相关关系</text>
+            <view class="modal-relations">
+              <view class="modal-relation" wx:for="{{relatedEdges}}" wx:key="index">
+                <view class="relation-path">
+                  <text class="relation-start">{{item.relatedEntity.name}}</text>
+                  <view class="relation-arrow">→</view>
+                  <text class="relation-label" style="background-color: {{selectedEntity.color}};">{{item.relation}}</text>
+                  <view class="relation-arrow">→</view>
+                  <text class="relation-end">{{selectedEntity.name}}</text>
+                </view>
+              </view>
+              <view wx:if="{{relatedEdges.length === 0}}" class="empty-relations">
+                <text>暂无相关关系</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部说明 -->
+  <view class="footer">
+    <text class="footer-text">南京水文化知识图谱 © 2024</text>
+  </view>
+</view>

@@ -1,0 +1,76 @@
+<view style="padding:16rpx;background:#fff4db;color:#73551c;font-size:24rpx;">公开展示版 · 路线规划、导航与评分服务未接入</view>
+<view class="container">
+  <!-- 不依赖外部图片域名的主题导览 -->
+  <swiper class="banner" autoplay="true" interval="3000" circular="true" catchtouchmove="onTouchMove">
+    <swiper-item>
+      <view class="banner-card banner-water"><text class="banner-title">金陵水韵</text><text class="banner-subtitle">读懂水系与城市文脉</text></view>
+    </swiper-item>
+    <swiper-item>
+      <view class="banner-card banner-qinhuai"><text class="banner-title">秦淮水关</text><text class="banner-subtitle">探寻古城水利设施</text></view>
+    </swiper-item>
+    <swiper-item>
+      <view class="banner-card banner-lake"><text class="banner-title">湖泊漫步</text><text class="banner-subtitle">按时间预算规划滨水路线</text></view>
+    </swiper-item>
+    <swiper-item>
+      <view class="banner-card banner-graph"><text class="banner-title">文化图谱</text><text class="banner-subtitle">连接水体、古迹、人物与诗词</text></view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 按钮区域 - 左右两个按钮 -->
+  <view class="button-container">
+    <view class="btn-left" bindtap="goToKnowledgeGraph">
+      <text class="btn-icon">📚</text>
+      <text class="btn-text">水文化图谱</text>
+    </view>
+    <view class="btn-right" bindtap="goToGenerate">
+      <text class="btn-icon">🗺️</text>
+      <text class="btn-text">生成路线</text>
+    </view>
+  </view>
+
+  <button bindtap="goToMyReviews">我的评价</button>
+
+  <!-- 高分路线展示 -->
+  <view class="top-routes-section">
+    <view class="section-header">
+      <text class="section-title">{{cloudEnabled ? '云端高分路线' : '本机评分路线'}}</text>
+      <text class="more-routes-btn" bindtap="goToMoreRoutes">更多路线</text>
+    </view>
+    <view wx:if="{{isLoadingRatings}}">正在加载评分…</view>
+    <view wx:if="{{ratingsError}}">{{ratingsError}}<button bindtap="getTopRoutes">重试</button></view>
+    <view class="top-routes-list">
+      <view class="top-route-item" wx:for="{{topRoutes}}" wx:key="routeId" bindtap="navigateToRoute" data-route="{{item}}">
+        <view class="top-route-header">
+          <view class="top-route-points">
+            <text class="point-name" wx:for="{{item.points}}" wx:for-item="point" wx:key="index">{{point}}<text wx:if="{{index < item.points.length - 1}}" class="point-arrow"> → </text></text>
+          </view>
+          <text class="top-route-rating">{{item.ratingDisplay || item.totalRating || '0.0'}}分</text>
+        </view>
+        <view class="top-route-info">
+          <text class="top-route-type">{{item.routeType ? item.routeType : '未知类型'}}</text>
+          <text wx:if="{{cloudEnabled}}">{{item.reviewCount}}人评价</text>
+          <text class="top-route-distance">{{item.distance ? item.distance : 0}}米</text>
+        </view>
+      </view>
+      <view class="no-routes" wx:if="{{topRoutes.length === 0 && !isLoadingRatings && !ratingsError}}">
+        <text>暂无评分数据</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评论区 - 滚轮滚动播放 -->
+  <view class="comments-section">
+    <text class="section-title">功能演示反馈（示例）</text>
+    <swiper class="comments-swiper" vertical="true" autoplay="true" interval="3000" circular="true" display-multiple-items="2" catchtouchmove="onTouchMove">
+      <swiper-item wx:for="{{comments}}" wx:key="index">
+        <view class="comment-item">
+          <view class="comment-user">{{item.user}}</view>
+          <view class="comment-content">{{item.content}}</view>
+          <view class="comment-route">{{item.route}}</view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- 天气查询按钮 - 移至生成路线页面 -->
+</view>

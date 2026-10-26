@@ -1,0 +1,737 @@
+.section {
+  background-color: white;
+  padding: 20rpx;
+  margin: 20rpx 0;
+  border-radius: 10rpx;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+  display: block;
+  color: #333;
+}
+
+/* 路线类型选择 */
+.type-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.type-item {
+  padding: 15rpx 25rpx;
+  background-color: #f5f5f5;
+  border-radius: 25rpx;
+  font-size: 14px;
+  color: #666;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+}
+
+.type-item.selected {
+  background-color: #1989fa;
+  color: white;
+  border-color: #1989fa;
+}
+
+/* 路线数量选择 - 滚轮选择器 */
+.route-count-picker {
+  height: 200rpx;
+  background-color: #f5f5f5;
+  border-radius: 10rpx;
+}
+
+/* 日期选择器 */
+.date-picker {
+  height: 200rpx;
+  background-color: #f5f5f5;
+  border-radius: 10rpx;
+}
+
+.picker-item {
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+/* 路线数量选择 - 旧版样式保留 */
+.count-selector, .time-selector {
+  display: flex;
+  gap: 20rpx;
+}
+
+.count-item, .time-item {
+  flex: 1;
+  padding: 20rpx;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 10rpx;
+  font-size: 14px;
+  color: #666;
+  border: 2rpx solid transparent;
+}
+
+.count-item.selected, .time-item.selected {
+  background-color: #1989fa;
+  color: white;
+  border-color: #1989fa;
+}
+
+/* 生成按钮 */
+.btn {
+  width: 80%;
+  height: 50px;
+  background-color: #1989fa;
+  color: white;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  margin: 30rpx auto;
+  cursor: pointer;
+}
+
+.btn.generating {
+  background-color: #999;
+}
+
+.btn:active {
+  background-color: #1677ff;
+}
+
+/* 路线结果展示界面 */
+.routes-result-container {
+  padding: 20rpx;
+}
+
+/* 返回按钮 */
+.back-btn {
+  margin-bottom: 30rpx;
+}
+
+.back-text {
+  font-size: 16px;
+  color: #1989fa;
+  padding: 10rpx 0;
+}
+
+/* 路线切换标签 */
+.route-tabs {
+  display: flex;
+  gap: 15rpx;
+  margin-bottom: 30rpx;
+  overflow-x: auto;
+  padding: 10rpx 0;
+}
+
+.route-tab {
+  padding: 20rpx 35rpx;
+  background-color: #f5f5f5;
+  border-radius: 30rpx;
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+}
+
+.route-tab.active {
+  background-color: #1989fa;
+  color: white;
+  border-color: #1989fa;
+}
+
+/* 当前路线详情 */
+.current-route-detail {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.route-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.route-detail-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.route-detail-time {
+  font-size: 16px;
+  color: #1989fa;
+  background-color: #e6f7ff;
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.route-detail-info {
+  display: flex;
+  gap: 40rpx;
+  margin-bottom: 30rpx;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.info-value {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+.route-detail-section {
+  margin-bottom: 30rpx;
+}
+
+.route-detail-section .section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-left: 15rpx;
+  border-left: 6rpx solid #1989fa;
+}
+
+/* 景点列表 */
+.points-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.point-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 15rpx;
+}
+
+.point-number {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #1989fa;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.point-name {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 路线优势 */
+.advantages-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.advantage-tag {
+  background-color: #e6f7ff;
+  color: #1989fa;
+  padding: 12rpx 25rpx;
+  border-radius: 25rpx;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* 导航按钮 */
+.navigation-btn {
+  margin-top: 40rpx;
+  background-color: #07c160;
+}
+
+.navigation-btn:active {
+  background-color: #06ad56;
+}
+
+/* 旧版样式保留 */
+.routes-section {
+  margin-top: 30rpx;
+}
+
+.routes-list {
+  max-height: 600rpx;
+}
+
+.route-card {
+  background-color: white;
+  margin: 20rpx 0;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.route-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.route-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.route-time {
+  font-size: 14px;
+  color: #1989fa;
+  background-color: #e6f7ff;
+  padding: 5rpx 15rpx;
+  border-radius: 15rpx;
+}
+
+.route-info {
+  display: flex;
+  gap: 30rpx;
+  margin-bottom: 15rpx;
+}
+
+.route-distance, .route-points {
+  font-size: 14px;
+  color: #666;
+}
+
+.route-points-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-bottom: 15rpx;
+}
+
+.point-tag {
+  background-color: #f0f0f0;
+  color: #666;
+  padding: 8rpx 15rpx;
+  border-radius: 15rpx;
+  font-size: 12px;
+}
+
+.route-advantages {
+  border-top: 1rpx solid #f0f0f0;
+  padding-top: 15rpx;
+}
+
+.advantages-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.advantage-item {
+  font-size: 13px;
+  color: #666;
+  display: block;
+  margin-bottom: 5rpx;
+  line-height: 1.4;
+}
+
+/* 弹窗样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  width: 90%;
+  max-height: 80%;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 30rpx;
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.detail-section {
+  margin-bottom: 20rpx;
+}
+
+.detail-label {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.detail-value {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+.detail-points {
+  background-color: #f9f9f9;
+  padding: 15rpx;
+  border-radius: 10rpx;
+}
+
+.detail-point {
+  font-size: 14px;
+  color: #666;
+  padding: 8rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.detail-point:last-child {
+  border-bottom: none;
+}
+
+.detail-advantages {
+  background-color: #f0f8ff;
+  padding: 15rpx;
+  border-radius: 10rpx;
+}
+
+.detail-advantage {
+  font-size: 13px;
+  color: #666;
+  display: block;
+  margin-bottom: 8rpx;
+  line-height: 1.4;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #f0f0f0;
+  gap: 20rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  margin: 0;
+}
+
+.modal-btn.secondary {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+/* 内容标签切换 */
+.content-tabs {
+  display: flex;
+  margin-bottom: 30rpx;
+  background-color: #f5f5f5;
+  border-radius: 15rpx;
+  padding: 5rpx;
+}
+
+.content-tab {
+  flex: 1;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  border-radius: 10rpx;
+  transition: all 0.3s;
+}
+
+.content-tab.active {
+  background-color: white;
+  color: #1989fa;
+  font-weight: bold;
+  box-shadow: 0 2rpx 5rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 天气预告 */
+.weather-preview {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.weather-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.weather-date {
+  font-size: 14px;
+  color: #999;
+}
+
+.weather-main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.weather-icon-large {
+  font-size: 80rpx;
+  margin-right: 30rpx;
+}
+
+.weather-details {
+  flex: 1;
+}
+
+.weather-temp {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.weather-desc {
+  font-size: 20rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.weather-extra {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+  width: 100%;
+}
+
+.weather-item {
+  font-size: 14px;
+  color: #888;
+  flex: 1;
+  text-align: left;
+}
+
+.weather-item:nth-child(2) {
+  text-align: right;
+}
+
+.weather-advice {
+  margin-top: 30rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.advice-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.advice-item {
+  display: flex;
+  margin-bottom: 15rpx;
+  align-items: center;
+}
+
+.advice-label {
+  font-size: 14px;
+  color: #666;
+  margin-right: 10rpx;
+  min-width: 120rpx;
+}
+
+.advice-content {
+  font-size: 14px;
+  color: #333;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.weather-loading {
+  text-align: center;
+  padding: 50rpx;
+  color: #999;
+}
+
+.weather-error {
+  text-align: center;
+  padding: 50rpx;
+  color: #999;
+}
+
+.weather-error .btn {
+  margin-top: 20rpx;
+  width: 60%;
+}
+
+/* 查看其他时间天气按钮 */
+.weather-more-btn {
+  margin-top: 40rpx;
+  padding: 25rpx 40rpx;
+  background-color: #f0f8ff;
+  border-radius: 15rpx;
+  text-align: center;
+  border: 2rpx solid #1989fa;
+}
+
+.more-btn-text {
+  font-size: 16px;
+  color: #1989fa;
+  font-weight: 500;
+}
+
+/* 天气模态框 */
+.weather-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.weather-modal .modal-content {
+  position: relative;
+  background-color: white;
+  width: 80%;
+  border-radius: 20rpx;
+  overflow: hidden;
+  z-index: 1001;
+}
+
+.weather-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.weather-modal .modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.weather-modal .modal-close {
+  font-size: 36rpx;
+  color: #999;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-modal .modal-body {
+  padding: 40rpx 30rpx;
+}
+
+.date-picker-modal {
+  height: 300rpx;
+  background-color: #f5f5f5;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+
+.modal-tips {
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.weather-modal .modal-footer {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.weather-modal .modal-btn {
+  flex: 1;
+  padding: 20rpx;
+  background-color: #1989fa;
+  color: white;
+  text-align: center;
+  border-radius: 10rpx;
+  font-size: 16px;
+}
+.data-source {
+  display: block;
+  margin: 12rpx 0 20rpx;
+  color: #607d8b;
+  font-size: 24rpx;
+}

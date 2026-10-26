@@ -1,0 +1,35 @@
+<view style="padding:16rpx;background:#fff4db;color:#73551c;font-size:24rpx;">公开展示版 · 路线规划、导航与评分服务未接入</view>
+<view class="container">
+  <view class="source-tabs" wx:if="{{cloudEnabled}}">
+    <button class="{{!localHistory ? 'active' : ''}}" data-source="cloud" bindtap="switchSource">我的云端评价</button>
+    <button class="{{localHistory ? 'active' : ''}}" data-source="local" bindtap="switchSource">本机历史</button>
+  </view>
+  <text class="description">{{cloudEnabled && !localHistory ? '评价已关联当前微信身份，可在这里修改评分。' : '这里显示保存在本机的评价记录。'}}</text>
+  <view wx:if="{{error}}" class="status">{{error}}<button bindtap="retry">重试</button></view>
+  <view wx:for="{{items}}" wx:key="routeId" class="review-card">
+    <text class="route-name">{{item.routeName}}</text>
+    <text class="meta">{{item.routeType}} · {{item.dateDisplay}}</text>
+    <text class="score">我的评分：{{item.ratingDisplay || item.totalRating}}分</text>
+    <text class="meta">景点推荐 {{item.attractionRating}}星 · 步行舒适 {{item.comfortRating}}星</text>
+    <view class="actions">
+      <button size="mini" data-index="{{index}}" bindtap="openRoute">查看路线</button>
+      <button size="mini" wx:if="{{!localHistory}}" data-index="{{index}}" bindtap="editReview">修改评分</button>
+    </view>
+  </view>
+  <view wx:if="{{isLoading}}" class="status">正在加载评价…</view>
+  <view wx:if="{{!isLoading && !error && !items.length}}" class="status">暂无评价，开始一次行程后即可评分。</view>
+  <button wx:if="{{hasMore && !isLoading}}" bindtap="loadMore">加载更多</button>
+  <view class="modal" wx:if="{{editingReview}}">
+    <view class="mask" bindtap="closeEditor"></view>
+    <view class="editor" catchtap="preventClose">
+      <text class="route-name">修改评分</text>
+      <text class="meta">{{editingReview.routeName}}</text>
+      <text>景点推荐程度</text>
+      <view class="stars"><text wx:for="{{stars}}" wx:key="*this" class="star {{attractionRating >= item ? 'selected' : ''}}" data-score="{{item}}" bindtap="chooseAttraction">★</text></view>
+      <text>步行舒适度</text>
+      <view class="stars"><text wx:for="{{stars}}" wx:key="*this" class="star {{comfortRating >= item ? 'selected' : ''}}" data-score="{{item}}" bindtap="chooseComfort">★</text></view>
+      <button type="primary" loading="{{isSubmitting}}" disabled="{{isSubmitting}}" bindtap="submitReview">保存修改</button>
+      <button disabled="{{isSubmitting}}" bindtap="closeEditor">取消</button>
+    </view>
+  </view>
+</view>

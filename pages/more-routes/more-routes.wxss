@@ -1,0 +1,180 @@
+.container {
+  padding: 0;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 导航栏 */
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background-color: white;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.back-icon {
+  margin-right: 10rpx;
+  font-size: 16px;
+}
+
+.nav-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.placeholder {
+  width: 60rpx;
+}
+
+/* 路线类型选择 */
+.type-section {
+  margin: 20rpx;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 15rpx;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.type-btn {
+  font-size: 13px;
+  color: #666;
+  background-color: #f5f5f5;
+  padding: 12rpx 20rpx;
+  border-radius: 20rpx;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.type-btn.active {
+  color: white;
+  background-color: #4CAF50;
+}
+
+.type-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.type-btn.active:hover {
+  background-color: #45a049;
+}
+
+/* 路线列表 */
+.routes-section {
+  margin: 20rpx;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 15rpx;
+}
+
+.routes-list {
+  margin-top: 15rpx;
+}
+
+.route-item {
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.route-item:last-child {
+  border-bottom: none;
+}
+
+.route-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10rpx;
+}
+
+.route-points {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  line-height: 1.4;
+}
+
+.point-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+}
+
+.point-arrow {
+  font-size: 11px;
+  color: #999;
+  margin: 0 3rpx;
+}
+
+.route-rating {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FF6F00;
+  background-color: #FFF8E1;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.route-info {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.route-type {
+  font-size: 12px;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.route-distance {
+  font-size: 12px;
+  color: #666;
+  background-color: #E3F2FD;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.no-routes {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999;
+  font-size: 14px;
+}
+
+/* 提示信息 */
+.tip-section {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.tip-text {
+  font-size: 14px;
+  color: #999;
+}

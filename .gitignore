@@ -1,0 +1,25 @@
+# 默认拒绝未审核的文件，仅允许展示源码进入版本控制
+*
+!*/
+!.gitignore
+!README.md
+!PUBLIC_SCOPE.md
+!app.js
+!app.json
+!app.wxss
+!sitemap.json
+!project.config.json
+!pages/**/*.js
+!pages/**/*.json
+!pages/**/*.wxml
+!pages/**/*.wxss
+# 即使误拷贝，也不追踪以下内容
+config.js
+project.private.config.json
+services/
+cloudfunctions/
+tests/
+build/
+.env*
+*.pem
+*.key

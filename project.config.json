@@ -1,0 +1,10 @@
+{
+  "appid": "touristappid",
+  "projectname": "南京水文化 Citywalk 展示版",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "libVersion": "3.14.2",
+  "setting": {
+    "es6": true
+  }
+}

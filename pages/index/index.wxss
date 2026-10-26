@@ -1,0 +1,518 @@
+.banner {
+  width: 100%;
+  height: 400rpx;
+  margin-top: 40rpx;
+  margin-bottom: 80rpx;
+  touch-action: pan-y;
+}
+
+.banner-card {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 70rpx 56rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+}
+
+.banner-water { background: linear-gradient(135deg, #075985, #06b6d4); }
+.banner-qinhuai { background: linear-gradient(135deg, #7c2d12, #d97706); }
+.banner-lake { background: linear-gradient(135deg, #14532d, #22c55e); }
+.banner-graph { background: linear-gradient(135deg, #312e81, #7c3aed); }
+
+.banner-title {
+  font-size: 52rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+}
+
+.banner-subtitle {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 按钮容器 - 左右两个按钮 */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  margin-top: 40rpx;
+  margin-bottom: 60rpx;
+}
+
+/* 左侧水文化图谱按钮 */
+.btn-left {
+  flex: 1;
+  margin-right: 20rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16rpx;
+  padding: 30rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.4);
+  transition: transform 0.2s;
+}
+
+.btn-left:active {
+  transform: scale(0.98);
+}
+
+/* 右侧生成路线按钮 */
+.btn-right {
+  flex: 1;
+  margin-left: 20rpx;
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  border-radius: 16rpx;
+  padding: 30rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(76, 175, 80, 0.4);
+  transition: transform 0.2s;
+}
+
+.btn-right:active {
+  transform: scale(0.98);
+}
+
+/* 按钮图标 */
+.btn-icon {
+  font-size: 48rpx;
+  margin-bottom: 10rpx;
+}
+
+/* 按钮文字 */
+.btn-text {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 高分路线展示 */
+.top-routes-section {
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  padding: 0 20rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.more-routes-btn {
+  font-size: 12px;
+  color: #4CAF50;
+  background-color: #E8F5E9;
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+  cursor: pointer;
+}
+
+.more-routes-btn:hover {
+  background-color: #C8E6C9;
+}
+
+.top-routes-list {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 15rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.top-route-item {
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.top-route-item:last-child {
+  border-bottom: none;
+}
+
+.top-route-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10rpx;
+  min-height: 60rpx;
+}
+
+.top-route-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+}
+
+.top-route-points {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  line-height: 1.4;
+}
+
+.point-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+}
+
+.point-arrow {
+  font-size: 11px;
+  color: #999;
+  margin: 0 3rpx;
+}
+
+.top-route-rating {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FF6F00;
+  background-color: #FFF8E1;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.top-route-info {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.top-route-type {
+  font-size: 12px;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.top-route-distance {
+  font-size: 12px;
+  color: #666;
+  background-color: #E3F2FD;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.top-route-points {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.no-routes {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.comments-section {
+  margin-top: 60rpx;
+  margin-bottom: 60rpx;
+  padding: 0 20rpx;
+}
+
+/* 评论滚轮滚动样式 */
+.comments-swiper {
+  height: 320rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 20rpx 0;
+  touch-action: pan-y;
+}
+
+.comments-swiper swiper-item {
+  height: 160rpx !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 15rpx 0;
+}
+
+.comment-item {
+  width: 90%;
+  height: 130rpx;
+  padding: 15rpx 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.comment-user {
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  color: #333;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.comment-content {
+  margin-bottom: 10rpx;
+  line-height: 1.4;
+  color: #666;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  flex-shrink: 0;
+}
+
+.comment-time {
+  font-size: 11px;
+  color: #999;
+  flex-shrink: 0;
+}
+
+/* 天气查询模态框 */
+.weather-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: relative;
+  width: 85%;
+  max-width: 600rpx;
+  background-color: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  z-index: 1001;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #2196F3;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  flex: 1;
+}
+
+.modal-close {
+  font-size: 48rpx;
+  color: white;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.weather-content {
+  padding: 30rpx;
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.date-selector {
+  margin-bottom: 30rpx;
+}
+
+.selector-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.date-picker {
+  height: 200rpx;
+  background-color: #f5f5f5;
+  border-radius: 10rpx;
+}
+
+.picker-item {
+  font-size: 32rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+
+.weather-info {
+  margin-top: 20rpx;
+}
+
+.weather-date {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.weather-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+  padding: 30rpx;
+  background-color: #f9f9f9;
+  border-radius: 15rpx;
+}
+
+.weather-icon-large {
+  font-size: 80rpx;
+  margin-right: 30rpx;
+}
+
+.weather-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.weather-temp {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.weather-desc {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.weather-extra {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+  width: 100%;
+}
+
+.weather-item {
+  font-size: 24rpx;
+  color: #888;
+  flex: 1;
+  text-align: left;
+}
+
+.weather-item:nth-child(2) {
+  text-align: right;
+}
+
+.travel-advice {
+  margin-top: 30rpx;
+}
+
+.advice-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.advice-item {
+  display: flex;
+  margin-bottom: 15rpx;
+  align-items: flex-start;
+}
+
+.advice-label {
+  font-size: 24rpx;
+  color: #666;
+  min-width: 120rpx;
+  flex-shrink: 0;
+}
+
+.advice-content {
+  font-size: 24rpx;
+  color: #333;
+  flex: 1;
+  line-height: 1.5;
+}
+
+.loading {
+  text-align: center;
+  padding: 50rpx 0;
+  color: #666;
+  font-size: 24rpx;
+}
+
+.modal-footer {
+  padding: 20rpx 30rpx 30rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 20rpx 60rpx;
+  border-radius: 35rpx;
+  font-size: 28rpx;
+  text-align: center;
+  min-width: 200rpx;
+}

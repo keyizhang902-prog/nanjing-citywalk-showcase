@@ -1,0 +1,616 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.map-container {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-view {
+  width: 100%;
+  height: 100%;
+}
+
+/* 切换按钮 */
+.toggle-buttons {
+  display: flex;
+  background-color: white;
+  border-bottom: 1rpx solid #eee;
+  position: relative;
+  z-index: 100;
+}
+
+.toggle-btn {
+  flex: 1;
+  text-align: center;
+  padding: 30rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+
+.toggle-btn.active {
+  color: #007AFF;
+  font-weight: bold;
+}
+
+.toggle-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 4rpx;
+  background-color: #007AFF;
+  border-radius: 2rpx;
+}
+
+.nav-info-panel {
+  flex: 1;
+  background-color: white;
+  border-radius: 20rpx 20rpx 0 0;
+  padding: 30rpx;
+  margin-top: -10rpx;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  position: relative;
+  z-index: 100;
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.nav-type {
+  font-size: 24rpx;
+  color: #999;
+  background-color: #f0f0f0;
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.nav-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30rpx;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.route-points {
+  margin-bottom: 30rpx;
+}
+
+.points-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.points-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.point-item {
+  display: flex;
+  align-items: center;
+  padding: 15rpx;
+  background-color: #f9f9f9;
+  border-radius: 10rpx;
+}
+
+.point-index {
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  background-color: #007AFF;
+  color: white;
+  border-radius: 50%;
+  font-size: 24rpx;
+  font-weight: bold;
+  margin-right: 20rpx;
+}
+
+.point-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.nav-advantages {
+  margin-bottom: 30rpx;
+}
+
+.advantages-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.advantage-item {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  padding: 10rpx 0;
+  line-height: 1.6;
+}
+
+.nav-buttons {
+  padding: 20rpx 30rpx;
+  background-color: white;
+  border-top: 1rpx solid #eee;
+  position: relative;
+  z-index: 100;
+}
+
+.btn {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  border-radius: 45rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #007AFF;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #FF3B30;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #8E8E93;
+  color: white;
+}
+
+/* 到起点路线信息 */
+.route-to-start-info {
+  margin: 20rpx 0;
+  padding: 20rpx;
+  background-color: #E8F5E9;
+  border-radius: 10rpx;
+  border-left: 8rpx solid #4CAF50;
+}
+
+.route-to-start-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.route-to-start-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2E7D32;
+}
+
+.route-to-start-close {
+  font-size: 24rpx;
+  color: #666;
+  padding: 5rpx 10rpx;
+}
+
+.route-to-start-stats {
+  display: flex;
+  gap: 30rpx;
+}
+
+.route-to-start-distance,
+.route-to-start-time {
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 导航到起点按钮 */
+.nav-to-start-btn {
+  margin: 20rpx 0;
+}
+
+.btn-success {
+  background-color: #34C759;
+  color: white;
+}
+
+/* 导航指引面板 */
+.navigation-guide {
+  margin-top: 30rpx;
+  padding: 30rpx;
+  background-color: #f8f8f8;
+  border-radius: 20rpx;
+}
+
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #ddd;
+}
+
+.guide-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.guide-progress {
+  font-size: 28rpx;
+  color: #007AFF;
+  font-weight: bold;
+}
+
+.guide-content {
+  margin-bottom: 20rpx;
+}
+
+.current-step, .next-step {
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  border-radius: 10rpx;
+}
+
+.current-step {
+  background-color: #007AFF;
+  color: white;
+}
+
+.next-step {
+  background-color: #E5E5EA;
+  color: #333;
+}
+
+.step-label {
+  font-size: 24rpx;
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.step-instruction {
+  font-size: 30rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10rpx;
+  line-height: 1.4;
+}
+
+.step-distance {
+  font-size: 26rpx;
+  opacity: 0.9;
+  display: block;
+}
+
+.guide-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.guide-actions .btn {
+  flex: 1;
+}
+
+/* 美食推荐 */
+.food-recommendation {
+  margin: 30rpx 0;
+  padding: 20rpx;
+  background-color: #FFF8E1;
+  border-radius: 10rpx;
+  border-left: 8rpx solid #FFA500;
+}
+
+.food-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #FF6F00;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.food-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.food-item {
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.food-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.food-name {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.food-rating {
+  font-size: 24rpx;
+  color: #FF6F00;
+  background-color: #FFF3E0;
+  padding: 5rpx 15rpx;
+  border-radius: 20rpx;
+}
+
+.food-advantages {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.food-advantage {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+  display: block;
+}
+
+/* 美食选择框 */
+.food-checkbox {
+  margin-top: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.food-checkbox checkbox {
+  transform: scale(1.2);
+  margin-right: 5rpx;
+}
+
+/* 沿途介绍 */
+.intro-section {
+  margin: 30rpx 0;
+  padding: 20rpx;
+  background-color: #E3F2FD;
+  border-radius: 10rpx;
+  border-left: 8rpx solid #2196F3;
+}
+
+.intro-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #1976D2;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.intro-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.intro-item {
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.intro-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15rpx;
+  gap: 15rpx;
+}
+
+.intro-index {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #2196F3;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.intro-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.intro-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  display: block;
+}
+
+/* 景点列表点击效果 */
+.intro-item {
+  transition: all 0.3s ease;
+}
+
+.intro-item.selected {
+  background-color: #E3F2FD;
+  border-left: 4rpx solid #2196F3;
+}
+
+.intro-arrow {
+  font-size: 32rpx;
+  color: #999;
+  margin-left: auto;
+}
+
+/* 景点详情弹窗 */
+.attraction-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: relative;
+  width: 80%;
+  max-width: 600rpx;
+  background-color: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  z-index: 1001;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #2196F3;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  flex: 1;
+}
+
+.modal-close {
+  font-size: 48rpx;
+  color: white;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 30rpx;
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.modal-intro {
+  margin-bottom: 30rpx;
+}
+
+.modal-info {
+  margin-bottom: 20rpx;
+}
+
+.modal-label {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 15rpx;
+}
+
+.modal-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+  display: block;
+}
+
+.modal-footer {
+  padding: 20rpx 30rpx 30rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 20rpx 60rpx;
+  border-radius: 35rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+.route-source {
+  display: block;
+  margin: 8rpx 0 16rpx;
+  color: #1677ff;
+  font-size: 24rpx;
+}

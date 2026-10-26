@@ -1,0 +1,59 @@
+<view style="padding:16rpx;background:#fff4db;color:#73551c;font-size:24rpx;">公开展示版 · 路线规划、导航与评分服务未接入</view>
+<view class="container">
+  <!-- 导航栏 -->
+  <view class="nav-header">
+    <view class="back-btn" bindtap="goBack">
+      <text class="back-icon">←</text>
+      <text>返回</text>
+    </view>
+    <text class="nav-title">{{cloudEnabled ? '云端评分路线' : '本机评分路线'}}</text>
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 路线类型选择 -->
+  <view class="type-section">
+    <text class="section-title">选择路线类型</text>
+    <view class="type-buttons">
+      <view class="type-btn {{selectedType === item ? 'active' : ''}}"
+            wx:for="{{routeTypes}}"
+            wx:key="index"
+            bindtap="selectType"
+            data-type="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 路线列表 -->
+  <view class="routes-section" wx:if="{{showRoutes}}">
+    <text class="section-title">{{selectedType}}路线 ({{typeRoutes.length}}条)</text>
+
+    <view class="routes-list" wx:if="{{typeRoutes.length > 0}}">
+      <view class="route-item" wx:for="{{typeRoutes}}" wx:key="routeId" bindtap="navigateToRoute" data-route="{{item}}">
+        <view class="route-header">
+          <view class="route-points">
+            <text class="point-name" wx:for="{{item.points}}" wx:for-item="point" wx:key="index">{{point}}<text wx:if="{{index < item.points.length - 1}}" class="point-arrow"> → </text></text>
+          </view>
+          <text class="route-rating">{{item.ratingDisplay || item.totalRating || '0.0'}}分</text>
+        </view>
+        <view class="route-info">
+          <text class="route-type">{{item.routeType ? item.routeType : '未知类型'}}</text>
+          <text wx:if="{{cloudEnabled}}">{{item.reviewCount}}人评价</text>
+          <text class="route-distance">{{item.distance ? item.distance : 0}}米</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{isLoadingRatings}}">正在加载评分…</view>
+    <view wx:if="{{ratingsError}}">{{ratingsError}}<button bindtap="retryRatings">重试</button></view>
+    <button wx:if="{{hasMore && !isLoadingRatings}}" bindtap="loadMore">加载更多</button>
+    <view class="no-routes" wx:if="{{!typeRoutes.length && !isLoadingRatings && !ratingsError}}">
+      <text>该类型暂无评分路线</text>
+    </view>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tip-section" wx:if="{{!showRoutes}}">
+    <text class="tip-text">请选择路线类型查看评分路线</text>
+  </view>
+</view>

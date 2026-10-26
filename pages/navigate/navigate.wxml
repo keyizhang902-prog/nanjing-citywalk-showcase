@@ -1,0 +1,141 @@
+<view style="padding:16rpx;background:#fff4db;color:#73551c;font-size:24rpx;">公开展示版 · 路线规划、导航与评分服务未接入</view>
+<view class="container">
+  <!-- 地图区域 -->
+  <view class="map-container">
+    <map wx:if="{{route && route.points.length > 1}}"
+      id="map"
+      class="map-view"
+      longitude="{{route.points[0].longitude}}"
+      latitude="{{route.points[0].latitude}}"
+      scale="14"
+      markers="{{markers}}"
+      polyline="{{polyline}}"
+    ></map>
+  </view>
+
+  <view wx:if="{{isPlanning}}">正在规划完整步行路线…</view>
+  <view wx:if="{{routeError}}">{{routeError}}<button wx:if="{{route && !exceedsTimeLimit}}" bindtap="retryRoute">重试</button></view>
+
+  <!-- 切换按钮 -->
+  <view class="toggle-buttons">
+    <view class="toggle-btn {{activeTab === 'route' ? 'active' : ''}}" bindtap="switchTab" data-tab="route">
+      路线简介
+    </view>
+    <view class="toggle-btn {{activeTab === 'intro' ? 'active' : ''}}" bindtap="switchTab" data-tab="intro">
+      沿途介绍
+    </view>
+    <view class="toggle-btn {{activeTab === 'food' ? 'active' : ''}}" bindtap="switchTab" data-tab="food">
+      美食推荐
+    </view>
+  </view>
+
+  <!-- 路线信息 -->
+  <view class="nav-info-panel">
+    <view class="nav-header">
+      <text class="nav-title">{{route.name}}</text>
+      <text class="nav-type">{{route.type}}</text>
+    </view>
+    <text class="route-source" wx:if="{{routeServiceSource}}">路网服务：{{routeServiceSource}}</text>
+
+    <view class="nav-stats">
+      <view class="stat-item">
+        <text class="stat-label">总距离</text>
+        <text class="stat-value">{{totalDistance}}米</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-label">预计时间</text>
+        <text class="stat-value">{{totalTimeDisplay}}分钟</text>
+      </view>
+    </view>
+
+    <!-- 路线简介内容 -->
+    <view wx:if="{{activeTab === 'route'}}">
+      <view class="route-points">
+        <text class="points-title">途经景点</text>
+        <view class="points-list">
+          <block wx:for="{{route.points}}" wx:key="index">
+            <view class="point-item">
+              <text class="point-index">{{index + 1}}</text>
+              <text class="point-name">{{item.name}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <view class="nav-advantages">
+        <text class="advantages-title">路线优势</text>
+        <block wx:for="{{route.advantages}}" wx:key="index">
+          <text class="advantage-item">{{item}}</text>
+        </block>
+      </view>
+    </view>
+
+    <!-- 沿途介绍内容 -->
+    <view wx:if="{{activeTab === 'intro'}}">
+      <view class="intro-section">
+        <text class="intro-title">🏛️ 沿途景点介绍（点击景点查看详情）</text>
+        <view class="intro-list">
+          <view class="intro-item {{selectedAttractionIndex === index ? 'selected' : ''}}" wx:for="{{route.points}}" wx:key="index" bindtap="showAttractionDetail" data-index="{{index}}" data-name="{{item.name}}">
+            <view class="intro-header">
+              <text class="intro-index">{{index + 1}}</text>
+              <text class="intro-name">{{item.name}}</text>
+              <text class="intro-arrow">›</text>
+            </view>
+            <text class="intro-desc">{{item.intro}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 美食推荐内容 -->
+    <view wx:if="{{activeTab === 'food'}}">
+      <view class="food-recommendation">
+        <text class="food-title">🍜 沿途美食推荐</text>
+        <view class="food-list">
+          <view class="food-item" wx:for="{{foodRecommendations}}" wx:key="index">
+            <view class="food-header">
+              <text class="food-name">{{item.name}}</text>
+              <text class="food-rating" wx:if="{{item.rating > 0}}">{{item.rating}}分</text>
+            </view>
+            <view class="food-advantages">
+              <text class="food-advantage" wx:for="{{item.advantages}}" wx:for-item="adv" wx:key="index">{{adv}}</text>
+            </view>
+            <view class="food-checkbox" bindtap="toggleFoodSelection" data-food="{{item}}">
+              <checkbox value="{{item.name}}" checked="{{item.checked}}" />
+              <text>加入路线</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开始导航按钮 -->
+  <view class="nav-buttons">
+    <view class="btn btn-primary" bindtap="startNavigation">开始导航</view>
+  </view>
+
+  <!-- 景点详情弹窗 -->
+  <view class="attraction-modal" wx:if="{{showAttractionModal}}" bindtap="closeAttractionModal">
+    <view class="modal-mask"></view>
+    <view class="modal-content" catchtap="preventClose">
+      <view class="modal-header">
+        <text class="modal-title">{{currentAttraction.name}}</text>
+        <view class="modal-close" bindtap="closeAttractionModal">×</view>
+      </view>
+      <view class="modal-body">
+        <view class="modal-intro">
+          <text class="modal-label">景点介绍</text>
+          <text class="modal-text">{{currentAttraction.intro}}</text>
+        </view>
+        <view class="modal-info" wx:if="{{currentAttraction.address}}">
+          <text class="modal-label">地址</text>
+          <text class="modal-text">{{currentAttraction.address}}</text>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="btn btn-secondary" bindtap="closeAttractionModal">关闭</view>
+      </view>
+    </view>
+  </view>
+</view>

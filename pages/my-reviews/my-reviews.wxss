@@ -1,0 +1,18 @@
+.container { padding: 28rpx; background: #f5f7fa; min-height: 100vh; box-sizing: border-box; }
+.source-tabs { display: flex; gap: 16rpx; margin-bottom: 24rpx; }
+.source-tabs button { flex: 1; font-size: 28rpx; }
+.source-tabs .active { color: #fff; background: #1677ff; }
+.description, .meta { display: block; font-size: 25rpx; color: #687384; line-height: 1.7; }
+.review-card { margin-top: 24rpx; padding: 28rpx; background: #fff; border-radius: 16rpx; }
+.route-name { display: block; font-size: 32rpx; font-weight: bold; margin-bottom: 12rpx; }
+.score { display: block; color: #b97800; font-size: 30rpx; margin: 16rpx 0; }
+.actions { display: flex; gap: 16rpx; margin-top: 20rpx; }
+.actions button { margin: 0; }
+.status { padding: 36rpx 0; color: #687384; line-height: 1.8; }
+.modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
+.mask { position: absolute; inset: 0; background: rgba(0, 0, 0, .45); }
+.editor { position: relative; width: 620rpx; max-height: 85vh; overflow-y: auto; padding: 32rpx; background: #fff; border-radius: 20rpx; box-sizing: border-box; }
+.stars { display: flex; gap: 20rpx; margin: 16rpx 0 28rpx; }
+.star { font-size: 64rpx; color: #ccd2da; }
+.star.selected { color: #e0a025; }
+.editor button { margin-top: 16rpx; }

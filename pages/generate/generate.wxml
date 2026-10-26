@@ -1,0 +1,216 @@
+<view style="padding:16rpx;background:#fff4db;color:#73551c;font-size:24rpx;">公开展示版 · 路线规划、导航与评分服务未接入</view>
+<view class="container">
+  <!-- 路线类型选择 -->
+  <view class="section" wx:if="{{!showRoutesResult}}">
+    <text class="section-title">选择路线类型</text>
+    <text class="data-source">数据源：{{dataSource}}</text>
+    <view class="type-grid">
+      <view class="type-item {{selectedType === item ? 'selected' : ''}}"
+            wx:for="{{routeTypes}}"
+            wx:key="index"
+            bindtap="selectType"
+            data-type="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 路线数量设置 - 滚轮选择器 -->
+  <view class="section" wx:if="{{!showRoutesResult}}">
+    <text class="section-title">生成路线数量</text>
+    <picker-view class="route-count-picker" value="{{[routeCount]}}" bindchange="onRouteCountChange">
+      <picker-view-column>
+        <view wx:for="{{routeCountOptions}}" wx:key="index" class="picker-item">{{item}}条</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+
+  <!-- 出行时间选择 -->
+  <view class="section" wx:if="{{!showRoutesResult}}">
+    <text class="section-title">出行时间</text>
+    <picker-view class="date-picker" value="{{[selectedDayIndex]}}" bindchange="onDateChange">
+      <picker-view-column>
+        <view wx:for="{{dateOptions}}" wx:key="index" class="picker-item">{{item}}</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+
+  <!-- 步行时间设置 -->
+  <view class="section" wx:if="{{!showRoutesResult}}">
+    <text class="section-title">步行时间限制</text>
+    <view class="time-selector">
+      <view class="time-item {{timeLimit === 45 ? 'selected' : ''}}" bindtap="setTimeLimit" data-time="45">45分钟</view>
+      <view class="time-item {{timeLimit === 60 ? 'selected' : ''}}" bindtap="setTimeLimit" data-time="60">1小时</view>
+      <view class="time-item {{timeLimit === 90 ? 'selected' : ''}}" bindtap="setTimeLimit" data-time="90">1.5小时</view>
+      <view class="time-item {{timeLimit === 120 ? 'selected' : ''}}" bindtap="setTimeLimit" data-time="120">2小时</view>
+    </view>
+  </view>
+
+  <!-- 生成路线按钮 -->
+  <view class="btn {{isGenerating ? 'generating' : ''}}" bindtap="generateRoute" wx:if="{{!showRoutesResult}}">
+    {{isGenerating ? '生成中...' : '生成路线'}}
+  </view>
+
+  <!-- 路线结果展示界面 -->
+  <view class="routes-result-container" wx:if="{{showRoutesResult}}">
+    <!-- 返回按钮 -->
+    <view class="back-btn" bindtap="backToSettings">
+      <text class="back-text">← 返回设置</text>
+    </view>
+
+    <!-- 路线展示与天气展示切换按钮 -->
+    <view class="content-tabs">
+      <view class="content-tab {{activeTab === 'route' ? 'active' : ''}}" bindtap="switchContentTab" data-tab="route">
+        路线展示
+      </view>
+      <view class="content-tab {{activeTab === 'weather' ? 'active' : ''}}" bindtap="switchContentTab" data-tab="weather">
+        天气预告
+      </view>
+    </view>
+
+    <!-- 路线切换按钮 -->
+    <view class="route-tabs" wx:if="{{activeTab === 'route'}}">
+      <view class="route-tab {{currentRouteIndex === index ? 'active' : ''}}"
+            wx:for="{{routes}}"
+            wx:key="index"
+            bindtap="switchRoute"
+            data-index="{{index}}">
+        <text wx:if="{{item.isFeatured}}">特色·水文化</text>
+        <text wx:elif="{{item.type === '水文化特色'}}">水文化路线</text>
+        <text wx:else>路线{{index + 1}}</text>
+      </view>
+    </view>
+
+    <!-- 当前路线详情展示 -->
+    <view class="current-route-detail" wx:if="{{currentRoute && activeTab === 'route'}}">
+      <view class="route-detail-header">
+        <text class="route-detail-name">{{currentRoute.isFeatured ? '★ ' : ''}}{{currentRoute.name}}</text>
+        <text class="route-detail-time">{{currentRoute.time}}分钟</text>
+      </view>
+
+      <view class="route-detail-info">
+        <view class="info-item">
+          <text class="info-label">总距离:</text>
+          <text class="info-value">{{currentRoute.distance}}米</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">景点数量:</text>
+          <text class="info-value">{{currentRoute.points.length}}个</text>
+        </view>
+        <view class="info-item" wx:if="{{currentRoute.planningBasis}}">
+          <text class="info-label">规划依据:</text>
+          <text class="info-value">{{currentRoute.planningBasis}}</text>
+        </view>
+      </view>
+
+      <view class="route-detail-section">
+        <text class="section-title">景点列表</text>
+        <view class="points-list">
+          <view class="point-item" wx:for="{{currentRoute.points}}" wx:key="index" wx:for-item="point">
+            <text class="point-number">{{index + 1}}</text>
+            <text class="point-name">{{point.name}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="route-detail-section" wx:if="{{currentRoute.advantages}}">
+        <text class="section-title">路线优势</text>
+        <view class="advantages-list">
+          <view class="advantage-tag" wx:for="{{currentRoute.advantages}}" wx:key="index">
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 开始导航按钮 -->
+      <view class="btn navigation-btn" bindtap="startNavigationFromDetail">开始导航</view>
+    </view>
+
+    <!-- 天气预告展示 -->
+    <view class="weather-preview" wx:if="{{activeTab === 'weather'}}">
+      <view class="weather-header">
+        <text class="weather-title">出行天气预告</text>
+        <text class="weather-date">{{selectedDate}}</text>
+      </view>
+
+      <view class="weather-main" wx:if="{{weatherData}}">
+        <text class="weather-icon-large">{{weatherData.icon}}</text>
+        <view class="weather-details">
+          <text class="weather-temp">白天 {{weatherData.temp}}°C</text>
+          <text class="weather-desc">{{weatherData.weather}}</text>
+          <view class="weather-extra">
+            <text class="weather-item">最高: {{weatherData.tempMax}}°C</text>
+            <text class="weather-item">最低: {{weatherData.tempMin}}°C</text>
+          </view>
+          <view class="weather-extra" wx:if="{{weatherData.humidity || weatherData.airQuality}}">
+            <text class="weather-item" wx:if="{{weatherData.humidity}}">湿度: {{weatherData.humidity}}</text>
+            <text class="weather-item" wx:if="{{weatherData.airQuality}}">空气质量: {{weatherData.airQuality}}</text>
+          </view>
+          <view class="weather-extra">
+            <text class="weather-item">防晒参考: {{weatherData.sunRadiation}}</text>
+            <text class="weather-item">风向: {{weatherData.wind}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="weather-advice" wx:if="{{weatherData}}">
+        <text class="advice-title">出行建议</text>
+        <view class="advice-item">
+          <text class="advice-label">👕 穿着建议：</text>
+          <text class="advice-content">{{clothingAdvice}}</text>
+        </view>
+        <view class="advice-item">
+          <text class="advice-label">☂️ 雨伞建议：</text>
+          <text class="advice-content">{{umbrellaAdvice}}</text>
+        </view>
+        <view class="advice-item">
+          <text class="advice-label">🧴 防晒等级：</text>
+          <text class="advice-content">{{sunProtectionAdvice}}</text>
+        </view>
+        <view class="advice-item">
+          <text class="advice-label">🚶 适合Citywalk：</text>
+          <text class="advice-content">{{citywalkAdvice}}</text>
+        </view>
+      </view>
+
+      <view class="weather-loading" wx:if="{{isLoadingWeather}}">
+        <text>加载天气数据中...</text>
+      </view>
+
+      <view class="weather-error" wx:if="{{!weatherData && !isLoadingWeather}}">
+        <text>{{weatherError}}</text>
+        <view class="btn" bindtap="getWeatherData">重试</view>
+      </view>
+
+      <!-- 查看其他时间天气按钮 -->
+      <view class="weather-more-btn" bindtap="showWeatherModal">
+        <text class="more-btn-text">查看其他时间南京市天气</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 天气选择模态框 -->
+  <view class="weather-modal" wx:if="{{showWeatherModal}}">
+    <view class="modal-mask" bindtap="closeWeatherModal"></view>
+    <view class="modal-content" catchtap="preventClose">
+      <view class="modal-header">
+        <text class="modal-title">选择出行日期</text>
+        <view class="modal-close" bindtap="closeWeatherModal">×</view>
+      </view>
+
+      <view class="modal-body">
+        <picker-view class="date-picker-modal" value="{{[selectedDayIndex]}}" bindchange="onDateChange">
+          <picker-view-column>
+            <view wx:for="{{dateOptions}}" wx:key="index" class="picker-item">{{item}}</view>
+          </picker-view-column>
+        </picker-view>
+
+        <view class="modal-tips">选择日期后，天气信息将自动更新</view>
+      </view>
+
+      <view class="modal-footer">
+        <view class="modal-btn confirm" bindtap="closeWeatherModal">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,22 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/generate/generate",
+    "pages/navigate/navigate",
+    "pages/navigation/navigation",
+    "pages/more-routes/more-routes",
+    "pages/knowledge-graph/knowledge-graph",
+    "pages/my-reviews/my-reviews"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "智能路线规划",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}
